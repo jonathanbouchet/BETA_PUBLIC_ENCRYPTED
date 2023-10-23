@@ -375,7 +375,7 @@ def display_record(selected_date: str, user_records):
     """
     # print(f"selected date: {selected_date} ")
     for record in user_records:
-        print(f"current record in display: {record}")
+        # print(f"current record in display: {record}")
         if selected_date == record['created_at_timestamp']:
             dict_you_want = {key: record[key] for key in ["created_at_timestamp", "username", "name",
                                                           "messages_chat", "messages_QA"] if key in record.keys()}
@@ -447,7 +447,7 @@ def encode_payload(payload: list) -> dict:
            "messages_QA": payload["messages_QA"],
            "messages_chat": payload["messages_chat"],
            "life_insurance_model": payload["life_insurance_model"].dict(),
-           "created_at": str(datetime.now())}
+           "created_at": str(datetime.utcnow())}
 
     d_bytes = json.dumps(obj).encode('utf-8')
     # then encode dictionary using the key
