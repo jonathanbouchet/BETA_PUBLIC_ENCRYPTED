@@ -452,5 +452,5 @@ def encode_payload(payload: list) -> dict:
     d_bytes = json.dumps(obj).encode('utf-8')
     # then encode dictionary using the key
     d_token = key.encrypt(d_bytes)
-    payload = {"username": st.session_state["username"], "data": d_token, "created_at": str(datetime.now())}
+    payload = {"username": st.session_state["username"], "data": d_token, "created_at": str(datetime.utcnow())}
     return payload
