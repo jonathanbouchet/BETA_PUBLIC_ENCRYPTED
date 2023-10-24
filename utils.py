@@ -335,6 +335,7 @@ def get_user_collection(collection_name: str, user_uid: str, num_records: int) -
 
     # print(f"all records: {records}")
 
+    g_timezone = pytz.timezone('GMT')
     records_reordered = []
     # apply encryption decoding
     key = Fernet(st.secrets["encryption_key"])
@@ -344,16 +345,21 @@ def get_user_collection(collection_name: str, user_uid: str, num_records: int) -
         original_dict_decoded = json.loads(original_dict.decode("utf-8"))
         # print(f"record decoded: {original_dict_decoded}")
 
-        tmp = original_dict_decoded["login_connection_time"].split(".")[0]
-        original_dict_decoded["login_connection_time"] = datetime.strptime(tmp, '%Y-%m-%d %H:%M:%S')
+        # tmp = original_dict_decoded["login_connection_time"].split(".")[0]
+        # original_dict_decoded["login_connection_time"] = datetime.strptime(tmp, '%Y-%m-%d %H:%M:%S')
 
         tmp = original_dict_decoded["created_at"].split(".")[0]
-        original_dict_decoded["created_at"] = datetime.strptime(tmp, '%Y-%m-%d %H:%M:%S')
+        tmp = datetime.strptime(tmp, '%Y-%m-%d %H:%M:%S')
+
+        g_time = tmp.astimezone(g_timezone)
+
+        original_dict_decoded["created_at"] = g_time
+        # original_dict_decoded["created_at"] = datetime.strptime(tmp, '%Y-%m-%d %H:%M:%S')
 
         # print(f"fixed time stamp: {original_dict_decoded}")
         records_reordered.append(original_dict_decoded)
 
-    print(f"records reordered:{records_reordered}")
+    # print(f"records reordered:{records_reordered}")
 
     newlist = sorted(records_reordered, key=lambda d: d['created_at'])[-num_records:]
     dates = []
