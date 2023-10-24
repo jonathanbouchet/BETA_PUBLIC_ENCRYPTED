@@ -10,12 +10,15 @@ from fpdf import FPDF
 from password_strength import PasswordPolicy
 from password_strength import tests
 from cryptography.fernet import Fernet
+import pytz
 
 
 def get_time():
-    """return time"""
+    """return time in GMT"""
     now = datetime.now()
-    return now.strftime("%H:%M:%S")
+    g_timezone = pytz.timezone('GMT')
+    g_time = now.astimezone(g_timezone)
+    return g_time
 
 
 def get_open_ai_key():
@@ -440,6 +443,7 @@ def encode_payload(payload: list) -> dict:
     """
     # encrypt data
     key = Fernet(st.secrets["encryption_key"])
+    current_time = get_time()
 
     obj = {"name": payload["name"],
            "username": payload["username"],
@@ -447,10 +451,10 @@ def encode_payload(payload: list) -> dict:
            "messages_QA": payload["messages_QA"],
            "messages_chat": payload["messages_chat"],
            "life_insurance_model": payload["life_insurance_model"].dict(),
-           "created_at": str(datetime.utcnow())}
+           "created_at": str(current_time)}
 
     d_bytes = json.dumps(obj).encode('utf-8')
     # then encode dictionary using the key
     d_token = key.encrypt(d_bytes)
-    payload = {"username": st.session_state["username"], "data": d_token, "created_at": str(datetime.utcnow())}
+    payload = {"username": st.session_state["username"], "data": d_token, "created_at": str(current_time)}
     return payload

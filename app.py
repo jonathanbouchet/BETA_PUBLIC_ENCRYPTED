@@ -35,7 +35,7 @@ from firebase_admin import auth
 from st_pages import Page, show_pages, hide_pages
 from firebase_admin import firestore
 from PIL import Image
-from utils import get_user_data, get_user_collection, display_record, eval_password, encode_payload
+from utils import get_user_data, get_user_collection, display_record, eval_password, encode_payload, get_time
 from models import Tags0
 
 TITLE: Final = "REFLEXIVE.AI"
@@ -328,7 +328,7 @@ def cookie_is_valid(cookie_manager: stx.CookieManager, cookie_name: str) -> bool
         st.session_state["name"] = token["name"]
         st.session_state["username"] = token["username"]
         st.session_state["authentication_status"] = True
-        st.session_state["login_connection_time"] = datetime.now()
+        st.session_state["login_connection_time"] = get_time()
         return True
     return False
 
