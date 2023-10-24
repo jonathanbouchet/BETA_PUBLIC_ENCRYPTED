@@ -355,12 +355,12 @@ def get_user_collection(collection_name: str, user_uid: str, num_records: int) -
 
     print(f"records reordered:{records_reordered}")
 
-    newlist = sorted(records_reordered, key=lambda d: d['login_connection_time'])[-num_records:]
+    newlist = sorted(records_reordered, key=lambda d: d['created_at'])[-num_records:]
     dates = []
     vals = []
     format_string = "%Y-%m-%d %H:%M:%S"
     for n in newlist:
-        obj = n['login_connection_time']
+        obj = n['created_at']
         dates.append(obj.strftime(format_string))
         n['created_at_timestamp'] = obj.strftime(format_string)
         vals.append(n)
