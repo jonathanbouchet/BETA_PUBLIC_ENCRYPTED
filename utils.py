@@ -271,7 +271,7 @@ def download_transcript(messages: list, log_name: str) -> None:
     :param log_name"
     :return:
     """
-    print("in download_transcripts")
+    # print("in download_transcripts")
 
     f = open(f"./{log_name}_messages.txt", "w+")
     cnt = 0

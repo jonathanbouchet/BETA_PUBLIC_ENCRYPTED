@@ -618,7 +618,7 @@ def main() -> None:
 
 # Run the Streamlit app
 if __name__ == "__main__":
-    print(f"Files and directories in {os.getcwd()}: {os.listdir(os.getcwd())}")
+    # print(f"Files and directories in {os.getcwd()}: {os.listdir(os.getcwd())}")
     for name in ["chat_messages.txt", "qa_messages.txt", "chat_messages.pdf", "qa_messages.pdf"]:
         if os.path.exists(name):
             os.remove(name)
