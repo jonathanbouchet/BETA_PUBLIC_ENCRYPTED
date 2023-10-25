@@ -572,8 +572,8 @@ def main() -> None:
                            'Report a bug': "mailto:support@reflexive.ai",
                            'About': "# REFLEXIVE.AI\n ## VIRTUAL AGENTS TO HELP YOU GROW YOUR BUSINESS "
                                     "\nhttps://reflexive.ai"})
-    hide_pages([Page("simple_chat.py", "Virtual Insurance Agent"),
-                Page("qa_docs.py", "QA Documents")])
+    # hide_pages([Page("simple_chat.py", "Virtual Insurance Agent"),
+    #             Page("qa_docs.py", "QA Documents")])
 
     # noinspection PyProtectedMember
     if not firebase_admin._apps:
